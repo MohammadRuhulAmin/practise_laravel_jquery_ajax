@@ -39,4 +39,32 @@ class StudentController extends Controller
         if(!empty($student))return response()->json($student);
         else return "Student Information not Found!";
     }
+    public function updateStudent(Request $request,$student_id){
+       $isValidate =  $request->validate([
+           'student_id'=>'required',
+            'student_name'=>'required',
+            'student_email'=>'required',
+            'student_contact'=>'required'
+        ]);
+      
+        
+        if($isValidate){
+            $student  = Student::find($student_id);
+            $student_id = $request->student_id;
+            $student->student_name = $request->student_name;
+            $student->student_email = $request->student_email;
+            $student->student_contact = $request->student_contact;
+            $student->save();
+            return response()->json($student);
+        }
+        else {
+            return "No such Student Found with this ID";
+        }
+    }
+
+    public function deleteStudent($student_id){
+        $student = Student::find($student_id);
+        $student->delete();
+        return "student is deleted successfully!";
+    }
 }

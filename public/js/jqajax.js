@@ -4,8 +4,8 @@ $.ajaxSetup({
     }
 });
 
-$(document).ready(function(){
     $('#message').hide();
+    $('#updateStudent').hide();
     $('#errorMessage').hide();
     $('#crossBtn_error').click(function(){
         $('#errorMessage').hide();
@@ -14,6 +14,7 @@ $(document).ready(function(){
         $('#message').hide();
     });
     // student view start
+
     function allStudentList(){
        
         $.ajax({
@@ -30,7 +31,7 @@ $(document).ready(function(){
                     "<td>"+ response[i].student_email +"</td>"+
                     "<td>"+ response[i].student_contact +"</td>"+
                     "<td>"+ "<button id='editBtn' class='btn btn-primary btn-sm' onclick='editData("+response[i].id+")'>Edit</button>"+" "+
-                    "<button class='btn btn-danger btn-sm'>Delete</button>"
+                    "<button class='btn btn-danger btn-sm' onclick='deleteData("+response[i].id+")'>Delete</button>"
                     +"</td>"+
                     +"</tr>";
                 }
@@ -43,7 +44,7 @@ $(document).ready(function(){
        
 
     }
-    allStudentList();
+     allStudentList();
 
     // student view finish
 
@@ -89,7 +90,7 @@ $(document).ready(function(){
     });
     //student insertion end 
 
-});
+
 
 
 
@@ -101,9 +102,14 @@ $(document).ready(function(){
             url:"/student/edit/"+id,
             success:function(response){
                 console.log(response);
+                $('#student_id').val(id);
                 $('#student_name').val(response.student_name);
                 $('#student_email').val(response.student_email);
                 $('#student_contact').val(response.student_contact);
+                $('#updateStudent').show();
+                $('#addStudent').hide();
+               // console.log(id +"okdkks");
+
 
             },
             error:function(error){
@@ -113,3 +119,25 @@ $(document).ready(function(){
         }); 
     }
   //  editData end;
+
+ // delete student start 
+    function deleteData(id){
+        let student_id = id;
+        $.ajax({
+            url:'/student/delete/'+student_id,
+            type:"POST",
+            success:function(response){
+                console.log(response);
+                allStudentList();
+                
+                
+            },
+            error:function(error){
+                console.log(error);
+            }
+
+        });
+       
+    }
+
+ //delete student end 

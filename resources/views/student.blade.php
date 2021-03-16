@@ -21,6 +21,7 @@
         </div>
         <form id="studentForm">
             @csrf 
+            <input type="text" name="student_id" id="student_id">
             <label class="form-control">Student Name </label>
             <input class="form-control" type="text" name="student_name" id="student_name">
             <label class="form-control">Student Email</label>
@@ -28,6 +29,7 @@
             <label class="form-control">Contact</label>
             <input class="form-control" type="text" name="student_contact" id="student_contact">
             <button class="btn btn-success" id="addStudent">Save Student</button>
+            
         </form>
         
     </div>
@@ -48,10 +50,10 @@
     </div>
 
 
-
+    <script src="{{asset('js/jquery.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>
     <script src="{{asset('js/popper.js')}}"></script>
-    <script src="{{asset('js/jquery.js')}}"></script>
+    
     <script src="{{asset('js/jqajax.js')}}"></script>
 </body>
 </html>
