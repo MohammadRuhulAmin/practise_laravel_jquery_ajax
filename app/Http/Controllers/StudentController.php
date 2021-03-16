@@ -14,11 +14,29 @@ class StudentController extends Controller
         return $students;
     }
     public function insertStudent(Request $request){
-        $student  = new Student();
-        $student->student_name = $request->student_name;
-        $student->student_email = $request->student_email;
-        $student->student_contact = $request->student_contact;
-        $student->save();
-        return "student is Inserted Successfully!";
+        $isValidate = $request->validate([
+            
+            'student_name'=>"required",
+            'student_email'=>'required',
+            'student_contact'=>'required',
+
+        ]);
+        if($isValidate){
+            $student  = new Student();
+            $student->student_name = $request->student_name;
+            $student->student_email = $request->student_email;
+            $student->student_contact = $request->student_contact;
+            $student->save();
+            return "student is Inserted Successfully!";
+        }
+        else{
+            return "validation error Occored!";
+        }
+        
+    }
+    public function editStudent($id){
+        $student = Student::find($id);
+        if(!empty($student))return response()->json($student);
+        else return "Student Information not Found!";
     }
 }

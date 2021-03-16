@@ -13,6 +13,12 @@
 
     <div class="jumbotron">
         <h3>Register a Student</h3>
+        <div id="message">
+            <p class="alert alert-success">New Student is Registered Successfully <button id="crossBtn" class="btn btn-danger">X</button></p>
+        </div>
+        <div id="errorMessage">
+            <p class="alert alert-danger">Insert All the fields Properly <button id="crossBtn_error" class="btn btn-danger">X</button></p>
+        </div>
         <form id="studentForm">
             @csrf 
             <label class="form-control">Student Name </label>
@@ -33,6 +39,7 @@
                 <td>Student Name</td>
                 <td>Email</td>
                 <td>Contact</td>
+                <td>Action </td>
             </tr>
             <tbody id="tbody">
 

@@ -5,9 +5,17 @@ $.ajaxSetup({
 });
 
 $(document).ready(function(){
-
+    $('#message').hide();
+    $('#errorMessage').hide();
+    $('#crossBtn_error').click(function(){
+        $('#errorMessage').hide();
+    });
+    $('#crossBtn').click(function(){
+        $('#message').hide();
+    });
     // student view start
     function allStudentList(){
+       
         $.ajax({
             url:"/student/list/",
             type:"GET",
@@ -21,19 +29,32 @@ $(document).ready(function(){
                     "<td>"+ response[i].student_name +"</td>"+
                     "<td>"+ response[i].student_email +"</td>"+
                     "<td>"+ response[i].student_contact +"</td>"+
+                    "<td>"+ "<button id='editBtn' class='btn btn-primary btn-sm' onclick='editData("+response[i].id+")'>Edit</button>"+" "+
+                    "<button class='btn btn-danger btn-sm'>Delete</button>"
+                    +"</td>"+
                     +"</tr>";
                 }
                 $('#tbody').html(resp);
-               
+                
                 
                 
             }
         });
+       
 
     }
     allStudentList();
 
     // student view finish
+
+    //clearing student field
+    function clearField(){
+        $('#student_name').val("");
+        $('#student_email').val("");
+        $('#student_contact').val("");
+    }
+
+   
 
     // student insertion start
 
@@ -54,12 +75,41 @@ $(document).ready(function(){
             data:student_information,
             success:function(response){
                 console.log(response);
-
+                clearField();
                 allStudentList();
+                $('#message').show();
+               
+               
+            },
+            error:function(error){
+                console.log(error);
+                $('#errorMessage').show();
             }
         });
     });
     //student insertion end 
 
-
 });
+
+
+
+    // editng data start
+    function editData(id){
+        $.ajax({
+            type:"GET",
+            dataType:"json",
+            url:"/student/edit/"+id,
+            success:function(response){
+                console.log(response);
+                $('#student_name').val(response.student_name);
+                $('#student_email').val(response.student_email);
+                $('#student_contact').val(response.student_contact);
+
+            },
+            error:function(error){
+                console.log(error);
+            }
+
+        }); 
+    }
+  //  editData end;
