@@ -21,7 +21,7 @@
         </div>
         <form id="studentForm">
             @csrf 
-            <input type="text" name="student_id" id="student_id">
+            <input type="hidden" name="student_id" id="student_id">
             <label class="form-control">Student Name </label>
             <input class="form-control" type="text" name="student_name" id="student_name">
             <label class="form-control">Student Email</label>
