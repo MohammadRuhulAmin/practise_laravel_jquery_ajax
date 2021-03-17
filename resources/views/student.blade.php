@@ -29,7 +29,7 @@
             <label class="form-control">Contact</label>
             <input class="form-control" type="text" name="student_contact" id="student_contact">
             <button class="btn btn-success" id="addStudent">Save Student</button>
-            
+            <button class="btn btn-warning" id="updateStudent">Update Student</button>
         </form>
         
     </div>

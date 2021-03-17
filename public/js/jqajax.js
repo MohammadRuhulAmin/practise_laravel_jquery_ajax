@@ -140,4 +140,31 @@ $.ajaxSetup({
        
     }
 
- //delete student end 
+ //delete student end  
+
+ // update student start
+    $('#updateStudent').click(function(e){
+        e.preventDefault();
+        let student_id = $('#student_id').val();
+        let student_name = $('#student_name').val();
+        let student_email = $('#student_email').val();
+        let student_contact = $('#student_contact').val();
+        var student_update = {
+            student_name:student_name,
+            student_email:student_email,
+            student_contact:student_contact,
+        };
+        $.ajax({
+            url:'/student/update/'+student_id,
+            type:'POST',
+            dataType:'json',
+            data:student_update,
+            success:function(response){
+                console.log(response);
+                allStudentList();
+            }
+        });
+    });
+    
+
+ // update student end 
